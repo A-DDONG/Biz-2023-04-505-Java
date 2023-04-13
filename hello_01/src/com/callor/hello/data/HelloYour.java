@@ -1,4 +1,4 @@
-package com.callor.hello;
+package com.callor.hello.data;
 /*
  * 주석, Comment
  * Source Code, Java Class File

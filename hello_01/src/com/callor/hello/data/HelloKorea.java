@@ -1,4 +1,4 @@
-package com.callor.hello;
+package com.callor.hello.data;
 
 public class HelloKorea {
 	public static void main(String[] args) {
