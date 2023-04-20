@@ -38,13 +38,10 @@ public class ControllerI {
 
 			if (prime(mainRndNum)) {
 				System.out.println(mainRndNum + " 소수");
-			} else {
-				System.err.println(mainRndNum + " 소수아님");
 			}
 			if (prime()) {
 				System.out.println(" 소수");
 			}
-		
 		}
 	}
 }
