@@ -8,13 +8,14 @@ public class ControllerF {
 	 * 
 	 * method 를 선언할때 void type 이외의 type 으로 선언하면 method {} 내에서 반드시 return 명령문이 있어야 한다
 	 */
-
+ 
 	public static boolean prime() {
 		int rndNum = (int) (Math.random() * 50) + 51;
 		int index = 0;
 		for (index = 2; index < rndNum; index++) {
 			if (rndNum % index == 0) {
-				break;
+//				break;
+				return false;
 			}
 		}
 
