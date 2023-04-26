@@ -18,7 +18,7 @@ public class ScoreServiceA {
 		System.out.printf("%3d\t", score.scKor);
 		System.out.printf("%3d\t", score.scEng);
 		System.out.printf("%3d\t", score.scMath);
-		System.out.printf("%3d\t", score.getTotal());
+		System.out.printf("%4d\t", score.getTotal());
 		System.out.printf("%5.2f\t\n", score.getAvg());
 
 	}
@@ -29,7 +29,7 @@ public class ScoreServiceA {
 		System.out.printf("%3d\t", kor);
 		System.out.printf("%3d\t", eng);
 		System.out.printf("%3d\t", math);
-		System.out.printf("%3d\t\n", kor + eng + math);
+		System.out.printf("%d\t\n", kor + eng + math);
 	}
 
 }

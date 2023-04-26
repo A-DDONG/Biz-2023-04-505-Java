@@ -49,17 +49,10 @@ public class HomeWork {
 		System.out.println("=".repeat(70));
 		System.out.println("학번\t이름\t국어\t영어\t수학\t총점\t평균");
 		System.out.println("-".repeat(70));
-
-		scoreService.scorePrint(scores[0]);
-		scoreService.scorePrint(scores[1]);
-		scoreService.scorePrint(scores[2]);
-		scoreService.scorePrint(scores[3]);
-		scoreService.scorePrint(scores[4]);
-		scoreService.scorePrint(scores[5]);
-		scoreService.scorePrint(scores[6]);
-		scoreService.scorePrint(scores[7]);
-		scoreService.scorePrint(scores[8]);
-		scoreService.scorePrint(scores[9]);
+		
+		for(int i=0 ; i<scores.length ; i++) {
+			scoreService.scorePrint(scores[i]);
+		}
 
 		System.out.println("-".repeat(70));
 
