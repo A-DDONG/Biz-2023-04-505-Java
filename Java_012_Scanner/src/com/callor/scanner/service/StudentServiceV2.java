@@ -89,15 +89,7 @@ public class StudentServiceV2 {
 		}
 	}
 
-	public void printStudents() {
-		for (int i = 0; i < stList.length; i++)
-			System.out.println(stList[i].getStNum() + "\t");
-		    System.out.println(stList[i].getStName() + "\t");
-		    System.out.println(stList[i].getStDept() + "\t");
-		    System.out.println(stList[i].getStGrade() + "\t");
-		    System.out.println(stList[i].getStTel()) + "\t");
 		    
 
-	}
 
 }
