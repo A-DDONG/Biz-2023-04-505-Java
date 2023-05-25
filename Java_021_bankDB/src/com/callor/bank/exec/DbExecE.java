@@ -40,7 +40,6 @@ public class DbExecE {
 			else if(intSelect == 4) bankService.printBuyerList();
 			else if(intSelect == 5) bankService.findUserInfo();
 			else if(intSelect == 6) bankService.makeAcount();
-			else if(intSelect == 7) bankService.inputSystem();
 		}
 		System.out.println("업무끝");
 	}

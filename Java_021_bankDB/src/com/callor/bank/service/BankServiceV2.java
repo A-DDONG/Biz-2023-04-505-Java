@@ -14,17 +14,17 @@ import com.callor.bank.service.impl.AccServiceV1;
 import com.callor.bank.service.impl.BuyerServiceImplV1;
 import com.callor.bank.utils.Line;
 
-public class BankService {
+public class BankServiceV2 {
 
 	protected final Scanner scan;
 	protected List<BuyerDto> buyerList;
-//	protected List<AccDto> accList;
-//	protected List<AccListDto> aioList;
+	protected List<AccDto> accList;
+	protected List<AccListDto> aioList;
 	protected final BuyerService buyerService;
 	protected final AccService accService;
 	protected final AccListService accListService;
 
-	public BankService() {
+	public BankServiceV2() {
 		buyerService = new BuyerServiceImplV1();
 		accService = new AccServiceV1();
 		accListService = new AccListServiceImplV1();
@@ -262,90 +262,110 @@ public class BankService {
 	
 	public void insertAccList() {
 		
-		// 고객정보 확인
-		printBuyerList();
-		findUserInfo();
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat today = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+		String todayString = today.format(date);
+		String timeString = time.format(date);
+		int totalBalance = 0;
 		
-		while(true) {
-			System.out.println(Line.sLine(100));
-			System.out.println("입출금 등록");
-			System.out.println(Line.sLine(100));
-			System.out.print("계좌번호 >> ");
-			String acNum = scan.nextLine();
-			
-			// 계좌번호를 사용하여 tbl_acc 테이블에서 데이터 조회
-			// accDto 에는 acNum 계좌번호에 해당하는 데이터가 모두 담긴 상태
-			AccDto accDto = accService.findById(acNum);
-			if(accDto == null) {
-				System.out.printf("계좌번호를 확인하세요(%s)",acNum);
-				continue;
-			}
-			System.out.print("거래구분(1:입금, 2:출금, -1:종료) >> ");
-			String aioDiv = scan.nextLine();
-			int intDiv = 0;
-			try {
-				intDiv = Integer.valueOf(aioDiv);
-			} catch (Exception e) {
-				System.out.printf("선택이 잘못되었습니다( %s )",aioDiv);
-				continue;
-			}
-			if(intDiv == -1) {
-				System.out.println("입출금 업무 중단");
-				break;
-			} 
-			if(intDiv != 1 && intDiv != 2) {
-				System.out.println("1:입금, 2:출금 중에서 선택하세요");
-				continue;
-			}
-			
-			String[] divs = {"입금","출금"};
-			int intAmt = 0;
-			while(true) {
-				String prompt = divs[intDiv - 1];
-				System.out.printf("%s (QUIT:종료) >> ",prompt);
-				String amount = scan.nextLine();
-				if(amount.equals("QUIT")) {
-					intAmt = -1;
-					break;
-				}
-				try {
-					intAmt = Integer.valueOf(amount);
-				} catch (Exception e) {
-					System.out.printf("%s 금액은 정수(숫자)로 입력해 주세요\n",prompt);
-					continue;
-				}
-				
-				if(aioDiv.equals("2")) {
-					int balance = accDto.acBalance;
-					if(balance < intAmt) {
-						System.out.printf("잔액(%d) 이 부족하여 출금할 수 없음",balance);
-						continue;
-					}
-				}
-				
-				break;
-			} // 입출금입력 while end
-			if(intAmt < 0) break;
-			
-			AccListDto ioDto = new AccListDto();
-			
-			Date date = new Date(System.currentTimeMillis());
-			SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
-			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-			ioDto.aioDate = dateFormat.format(date);
-			ioDto.aioTime = timeFormat.format(date);
-			ioDto.acNum = acNum;
-			ioDto.aioDiv = aioDiv;
-			if(aioDiv.equals("1")) {
-				ioDto.aioInput = intAmt;
-			} else if(aioDiv.equals("2")) {
-				ioDto.aioOutput = intAmt;
-				intAmt *= -1;
-			}
-			accListService.insert(ioDto);
-			
-			accDto.acBalance = accDto.acBalance + intAmt;
-			accService.update(accDto);
+		this.printBuyerList();
+		System.out.print("고객ID >> ");
+		String buId = scan.nextLine();
+		BuyerDto buyerDto = buyerService.findById(buId);
+		if (buyerDto == null) {
+			System.out.println("고객ID 가 없습니다");
+			return;
 		}
+		List<AccDto> accList = accService.findByBuId(buId);
+		if (accList.isEmpty()) {
+			System.out.println("고객의 계좌정보가 없습니다");
+			return;
+		} else {
+			System.out.println(Line.sLine(100));
+			System.out.println("계좌번호\t구분\t잔액");
+			System.out.println(Line.sLine(100));
+			for (AccDto accDto : accList) {
+				System.out.printf("%s\t", accDto.acNum);
+
+				int intDiv = 0;
+				try {
+					intDiv = Integer.valueOf(accDto.acDiv);
+					System.out.printf("%s\t", DBContract.ACC_DIV[intDiv - 1]);
+				} catch (Exception e) {
+					System.out.printf("%s\t", "종류불명");
+				}
+				System.out.printf("%d\n", accDto.acBalance);
+			}
+			System.out.println(Line.sLine(100));
+		}
+		
+		System.out.println("거래를 진행할 계좌번호를 입력해주세요");
+		System.out.print("계좌번호 >> ");
+		String acNum = scan.nextLine();
+		for(AccDto accDto : accList) {
+			if(accDto.acNum.equals(acNum)) {
+				System.out.printf("선택하신 계좌는 %s 입니다\n",acNum);
+				System.out.println("진행하실 거래를 선택해주세요(1.입금/2.출금)");
+				System.out.print("거래 선택 >> ");
+				String selectNum = scan.nextLine();
+				if(selectNum.equals("1")) {
+					System.out.println("입금을 선택하셨습니다");
+					System.out.println("입금하실 금액을 입력해주세요");
+					System.out.printf("금액 >> ");
+					String strInput = scan.nextLine();
+					int input = Integer.valueOf(strInput);
+					System.out.printf("%d 원을 입금하시겠습니까?",input);
+					System.out.print(" YES/NO >> ");
+					String yesNo = scan.nextLine();
+					if(yesNo.equals("YES")) {
+						System.out.println(input + " 원이 입금되었습니다");
+						System.out.println("현재 잔액 : " + (accDto.acBalance + input));
+						totalBalance = accDto.acBalance + input;
+					} else if(yesNo.equals("NO")){
+						System.out.println("입금이 취소되었습니다");
+						break;
+					}
+					System.out.println(todayString);
+					System.out.println(timeString);
+					AccListDto accListDto = new AccListDto();
+					accListDto.acNum = acNum;
+					accListDto.aioDate = todayString;
+					accListDto.aioTime = timeString;
+					accListDto.aioDiv = selectNum;
+					accListDto.aioInput = input;
+					accListService.insert(accListDto);
+					
+				} else if(selectNum.equals("2")) {
+					System.out.println("출금을 선택하셨습니다");
+					System.out.printf("현재 잔액 %d 원\n",accDto.acBalance);
+					System.out.println("출금하실 금액을 입력해주세요");
+					System.out.print("금액 >> ");
+					String strOutput = scan.nextLine();
+					int output = Integer.valueOf(strOutput);
+					System.out.printf("%d 원을 출금하시겠습니까?",output);
+					System.out.print(" YES/NO >> ");
+					String yesNo = scan.nextLine();
+					if(yesNo.equals("YES")) {
+						System.out.printf("%d 원을 출금했습니다\n",output);
+						System.out.printf("현재 잔액 : %d 원\n",accDto.acBalance - output);
+						
+					} else if(yesNo.equals("NO")){
+						System.out.println("출금이 취소되었습니다");
+						break;
+					}
+					System.out.println(todayString);
+					System.out.println(timeString);
+					AccListDto accListDto = new AccListDto();
+					accListDto.acNum = acNum;
+					accListDto.aioDate = todayString;
+					accListDto.aioTime = timeString;
+					accListDto.aioDiv = selectNum;
+					accListDto.aioOutput = output;
+					accListService.insert(accListDto);
+				}
+			}
+		}
+		
 	}
 }

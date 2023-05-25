@@ -82,6 +82,7 @@ public class AccServiceV1 implements AccService {
 		PreparedStatement pStr;
 		try {
 			pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, acNum);
 			ResultSet result = pStr.executeQuery();
 
 			if (result.next()) {
@@ -117,9 +118,32 @@ public class AccServiceV1 implements AccService {
 		return 0;
 	}
 
+	/*
+	 * 계좌정보 전체(또는 부분)을 UPDATE 하는 method
+	 * SQL 을 보면 전체 칼럼을 모두 UPDATE 하고 있다
+	 * update() method 를 호출하는 곳에서는 반드시 AccDto 객체를 잘 관리해야 한다
+	 * 변경할 칼럼의 데이터만 변경하고 
+	 * 그렇지 않을(변경하지 않을) 칼럼은 원래 값을 그대로 유지
+	 */
 	@Override
 	public int update(AccDto dto) {
-		// TODO Auto-generated method stub
+		
+		String sql = " UPDATE tbl_acc SET "
+				+ " acBuId = ? ,"
+				+ " acDiv = ? ,"
+				+ " acBalance = ? "
+				+ " WHERE acNum = ? ";
+		try {
+			PreparedStatement pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, dto.acBuId);
+			pStr.setString(2, dto.acDiv);
+			pStr.setInt(3, dto.acBalance);
+			pStr.setString(4, dto.acNum);
+			return pStr.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
@@ -161,12 +185,13 @@ public class AccServiceV1 implements AccService {
 			pStr.setString(1, date);
 			ResultSet result = pStr.executeQuery();
 			if(result.next()) {
-				return result.getString(1);
+				String maxNum = result.getString(1);
+				if(maxNum == null) return "0";
+				else return maxNum;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return "0";
 	}
-
 }
