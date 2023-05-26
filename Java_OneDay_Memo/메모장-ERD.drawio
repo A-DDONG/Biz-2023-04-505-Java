@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" modified="2023-05-26T04:36:32.044Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="ROvjVyJDSAtX7LyVd2DZ" version="21.3.2" type="device">
+  <diagram name="페이지-1" id="8XrqBQOJkclmV67PaYQB">
+    <mxGraphModel dx="989" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tNg-ivel2QZQDLKzDrx9-1" target="tNg-ivel2QZQDLKzDrx9-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-8" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=classic;" edge="1" parent="1" source="tNg-ivel2QZQDLKzDrx9-1" target="tNg-ivel2QZQDLKzDrx9-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-9" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=classic;" edge="1" parent="1" source="tNg-ivel2QZQDLKzDrx9-1" target="tNg-ivel2QZQDLKzDrx9-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-10" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=classic;" edge="1" parent="1" source="tNg-ivel2QZQDLKzDrx9-1" target="tNg-ivel2QZQDLKzDrx9-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-11" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=classic;" edge="1" parent="1" source="tNg-ivel2QZQDLKzDrx9-1" target="tNg-ivel2QZQDLKzDrx9-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-1" value="메모장" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="280" y="120" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-2" value="일련번호" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-3" value="작성자" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="160" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-4" value="작성일자" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="280" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-5" value="제목" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tNg-ivel2QZQDLKzDrx9-6" value="내용" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
